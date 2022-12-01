@@ -27,7 +27,16 @@ Sqr_matrix::Sqr_matrix(int n, long double x) :
 
 /// Methods
 Sqr_matrix Sqr_matrix::triangle() const // returns matrix in triangle form
-{}
+{
+    Sqr_matrix m((*this).dimension, 0);
+    for (int j = 0; j < width; ++j)
+        m.numbers[j] = (*this).numbers[j];
+    for (int i = 1; i < length; ++i)
+        for (int j = i; j < width; ++j)
+            m.numbers[i*width + j] = (m.numbers[i*width + j] * m.numbers[(i-1)*width + i] -
+                                      m.numbers[(i-1)*width + j] * m.numbers[i*width + i]); // Bareiss's method
+    return m;
+}
 Sqr_matrix Sqr_matrix::diagonalization() const // returns matrix in diagonale forn
 {}
 Sqr_matrix Sqr_matrix::inverse() const // returns inverse matrix
